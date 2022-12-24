@@ -9,20 +9,41 @@
     <Copyright>KAMIYA</Copyright>
     <Company>KAMIYA</Company>
     <Authors>KAMIYA</Authors>
+    <ApplicationIcon>2324.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ResourceFiles\Images\" />
+    <None Remove="ResourceFiles\Images\cuteeee.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="2324.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ResourceFiles\ResourceDictionaries\" />
     <Folder Include="ViewModels\Commands\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="..\..\..\Desktop\KAMIYA\d0130e69-2a36-4250-bd25.png" Link="ResourceFiles\d0130e69-2a36-4250-bd25.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
+    <Resource Include="ResourceFiles\Images\cuteeee.jpg">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

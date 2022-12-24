@@ -10,7 +10,6 @@ namespace StoryTaler.Models
 {
     public class Year
     {
-		public Guid YearId { get; set; }
 		public int YearNumber;
 		public ObservableCollection<Product> Games { get; set; }
 		public ObservableCollection<Product> DropedGames { get; set; }
@@ -20,8 +19,19 @@ namespace StoryTaler.Models
 		public ObservableCollection<Product> Education { get; set; }
 		public ObservableCollection<Product> Cities { get; set; }
 		public ObservableCollection<Product> OnlineGames { get; set; }
+
+		public Year() {
+			YearNumber = DateTime.Now.Year;
+			Games = new ObservableCollection<Product>();
+			DropedGames = new ObservableCollection<Product>();
+			Books = new ObservableCollection<Product>();
+			Movies = new ObservableCollection<Product>();
+			TVSeries = new ObservableCollection<Product>();
+			Education = new ObservableCollection<Product>();
+			Cities = new ObservableCollection<Product>();
+			OnlineGames = new ObservableCollection<Product>();
+		}
 		public Year(int yearNumber) {
-			YearId= Guid.NewGuid();
 			YearNumber = yearNumber;
 			Games =	new ObservableCollection<Product>();
 			DropedGames= new ObservableCollection<Product>();

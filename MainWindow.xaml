@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="StoryTaler" Height="720" Width="1280"
-        MinHeight="550" MinWidth="1200"
-        Icon="ResourceFiles/d0130e69-2a36-4250-bd25.png"
+        MinHeight="720" MinWidth="1280"
+        Icon="ResourceFiles/Images/cuteeee.jpg"
         Background="{StaticResource ApplicationMainColor}">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
@@ -32,13 +32,18 @@
 
             <Border Grid.Row="1" BorderThickness="0.5" BorderBrush="Black" Background="#FF1F1F1F">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <WrapPanel Orientation="Horizontal" Name="myYearsCollection"/>
+                    <WrapPanel Orientation="Horizontal" Name="myYearsCollection">
+                        <Label Name="yearEmptyTextBlock" Visibility="Collapsed" 
+                               Content="Journal is empty, add year to start..." Foreground="Silver"/>
+                    </WrapPanel>
                 </ScrollViewer>
             </Border>
             
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Name="addYearButton" Style="{StaticResource YearsButtonStyle}" 
-                        Click="AddYearButton_Click" Width="150" FontSize="20" Content="Add Year"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                <Button Name="addYearButton" Style="{StaticResource CategoryButtonStyle}" 
+                        Click="AddYearButton_Click" Width="100" FontSize="20" Content="Add Year"/>
+                <Button Name="deleteYearButton" Style="{StaticResource CategoryButtonStyle}" 
+                        Click="DeleteYearButton_Click" Width="100" FontSize="20" Content="Delete Year"/>
             </StackPanel>
         </Grid>
 
@@ -55,18 +60,54 @@
                     <Button Style="{StaticResource CategoryButtonStyle}" Content="Online Games" Click="CategoryButton_Click"/>
                 </StackPanel>
                 <TextBlock x:Name="dateTimeTextBlock" Loaded="DateTimeTextBlock_Loaded" Foreground="LightGoldenrodYellow"
-                           Text="Time" FontSize="15" VerticalAlignment="Center" Margin="10,0"/>
+                           Text="Time" FontSize="15" VerticalAlignment="Center" Margin="10,0" Visibility="Collapsed"/>
             </StackPanel>
 
-
-            <StackPanel DockPanel.Dock="Left" MaxHeight="1000">
-                <ListBox Name="productList" ItemTemplate="{StaticResource productListBox}"
+            <StackPanel DockPanel.Dock="Left" MaxHeight="1000" MinWidth="350" MaxWidth="400">
+                <ListBox Name="productList" SelectionChanged="ProductInfoStyleChange" ItemTemplate="{StaticResource productListBox}"
                          Background="Transparent" BorderThickness="1" BorderBrush="Black" Margin="10" 
-                         ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="{Binding ElementName=mainContentTemplate, Path=ActualHeight,
+                         ScrollViewer.VerticalScrollBarVisibility="Auto" Height="{Binding ElementName=mainContentTemplate, Path=ActualHeight,
                          Converter={StaticResource MaxHeightConverter}, ConverterParameter={StaticResource adjMaxHeightRatio}}"/>
+                <Label Name="yearIsEmptyTextBlock" Visibility="Collapsed" Margin="10,0"
+                               Content="List is empty..." Foreground="Silver"/>
             </StackPanel>
-            <Grid>
 
+            <Grid DataContext="{Binding ElementName=productList,Path=SelectedItem}" Background="#FF1B1B1B" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="IMAGE" Foreground="Gray" FontSize="45"
+                       VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Calibri" 
+                        Margin="0, 60" BorderBrush="Gray" BorderThickness="1"/>
+                <Border Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" 
+                        Margin="5, 50" BorderBrush="Black" BorderThickness="1">
+                    <Image Name="myImage" Stretch="Uniform"/>
+                </Border>
+
+                <StackPanel Grid.Column="1" Grid.Row="0" Margin="20, 10">
+                    <TextBlock Name="selectedCategoryText" Style="{StaticResource productNameStyle}" FontSize="15"/>
+                    <TextBlock Text="{Binding Path=Name}" Style="{StaticResource productNameStyle}" Margin="3"/>
+                    <StackPanel HorizontalAlignment="Right" Margin="10, 0" Orientation="Horizontal">
+                        <TextBlock Name="productRatingBegin" Text="{Binding Path=Rating}" 
+                                   Style="{StaticResource productNameStyle}" FontSize="50"/>
+                        <TextBlock Name="productRatingEnd" Text="/10" Style="{StaticResource productNameStyle}" FontSize="50"/>
+                    </StackPanel>
+                    <TextBlock Text="Note" Style="{StaticResource productNameStyle}" FontSize="20" 
+                               HorizontalAlignment="Left" Foreground="White"/>
+                    <TextBox Text="{Binding Path=Description}" Style="{StaticResource productDescriptionStyle}" Margin="0,10"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20">
+                    <Button Style="{StaticResource CategoryButtonStyle}" Content="Add new item" Click="AddItemButton_Click"/>
+                    <Button Style="{StaticResource CategoryButtonStyle}" Content="Edit item" Click="EditItemButton_Click" Margin="10,0"/>
+                    <Button Style="{StaticResource CategoryButtonStyle}" Content="Delete item" Click="DeleteItemButton_Click"/>
+                </StackPanel>
             </Grid>
         </DockPanel>
     </Grid>
