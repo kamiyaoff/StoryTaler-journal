@@ -225,8 +225,16 @@ namespace StoryTaler {
 			Product item = (Product)productList.SelectedItem;
 			if (item?.Image != null) {
 				Uri imageUri = new Uri(item.Image);
+				try { 
 				BitmapImage image = new BitmapImage(imageUri);
 				myImage.Source = image;
+				}
+				catch(FileNotFoundException ex) {
+					MessageBox.Show(ex.Message + " Propably file has been moved or deleted. Select new image.",
+						"Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					item.Image = null;
+					myImage.Source = null;
+				}
 				return;
 			}
 			myImage.Source = null;
